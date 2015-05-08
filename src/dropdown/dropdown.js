@@ -37,7 +37,7 @@ angular.module('angularify.semantic.dropdown', [])
             model: '=ngModel'
         },
         template: '<div class="{{ dropdown_class }}">' +
-                    '<div class="default text">{{ title }}</div>' +
+                    '<div class="default text">{{ title | amDateFormat: "dddd, MMMM Do YYYY" }}</div>' +
                     '<i class="dropdown icon"></i>' +
                     '<div class="{{ menu_class }}"  ng-transclude>' +
                     '</div>' +
