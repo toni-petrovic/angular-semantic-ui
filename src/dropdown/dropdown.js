@@ -45,6 +45,7 @@ angular.module('angularify.semantic.dropdown', [])
                     '</div>' +
                 '</div>',
         link: function (scope, element, attrs, DropDownController) {
+            
             scope.dropdown_class = 'ui selection dropdown';
             scope.menu_class = 'menu transition hidden';
             scope.original_title = scope.title;
@@ -74,7 +75,8 @@ angular.module('angularify.semantic.dropdown', [])
             scope.$watch('model', function (val) {
                 // update title or reset the original title if its empty
                 scope.model = val;
-                DropDownController.update_title(val || scope.original_title);
+                var title = val || scope.original_title;
+                DropDownController.update_title(val, title);
             });
 
             /*
@@ -88,7 +90,7 @@ angular.module('angularify.semantic.dropdown', [])
                     });
                 } else {
                     if (scope.title !== scope.original_title)
-                        scope.model = scope.title;
+                        scope.model = scope.value;
                     scope.$apply(function () {
                         scope.dropdown_class = 'ui selection dropdown';
                         scope.menu_class = 'menu transition hidden';
