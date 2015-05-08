@@ -106,6 +106,7 @@ angular.module('angularify.semantic.dropdown', [])
         require: '^dropdown',
         scope: {
             title: '=title'
+            ,value: '=value'
         },
         template: '<div class="item" ng-transclude >{{ item_title }}</div>',
         link: function (scope, element, attrs, DropDownController) {
@@ -118,11 +119,17 @@ angular.module('angularify.semantic.dropdown', [])
                 scope.item_title = scope.title;
             }
 
+            if (scope.value === undefined) {
+                scope.item_value = element.children()[0].innerHTML;
+            } else {
+                scope.item_value = scope.value;
+            }
+
             //
             // Menu item click handler
             //
             element.bind('click', function () {
-                DropDownController.update_title(scope.item_title);
+                DropDownController.update_title(scope.item_value);
             });
         }
     };
