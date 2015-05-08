@@ -16,9 +16,10 @@ angular.module('angularify.semantic.dropdown', [])
                     $scope.items.splice(index, 1);
             };
 
-            this.update_title = function (title) {
+            this.update_title = function (value, title) {
                 for (var i in $scope.items) {
                     $scope.items[i].title = title;
+                    $scope.items[i].value = value;
                 }
             };
 
@@ -33,11 +34,12 @@ angular.module('angularify.semantic.dropdown', [])
         controller: 'DropDownController',
         scope: {
             title: '@',
+            value: '@',
             open: '@',
             model: '=ngModel'
         },
         template: '<div class="{{ dropdown_class }}">' +
-                    '<div class="default text">{{ title }}</div>' +
+                    '<div class="default text">{{ title | amDateFormat: "dddd, MMMM Do YYYY" }}</div>' +
                     '<i class="dropdown icon"></i>' +
                     '<div class="{{ menu_class }}"  ng-transclude>' +
                     '</div>' +
@@ -59,7 +61,7 @@ angular.module('angularify.semantic.dropdown', [])
             /*
              * Watch for title changing
              */
-            scope.$watch('title', function (val, oldVal) {
+            scope.$watch('value', function (val, oldVal) {
                 if (val === undefined || val === oldVal || val === scope.original_title)
                     return;
 
@@ -129,7 +131,7 @@ angular.module('angularify.semantic.dropdown', [])
             // Menu item click handler
             //
             element.bind('click', function () {
-                DropDownController.update_title(scope.item_value);
+                DropDownController.update_title(scope.item_value, scope.item_title);
             });
         }
     };
